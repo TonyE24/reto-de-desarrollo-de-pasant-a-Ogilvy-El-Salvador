@@ -4,8 +4,8 @@ MVP de plataforma de análisis de mercado para PYMEs, desarrollado como parte de
 
 ## 🚀 Stack Tecnológico
 
-- **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS
-- **Backend:** Laravel 11 + SQLite/MySQL
+- **Frontend:** React + TypeScript + Vite + Tailwind CSS
+- **Backend:** Laravel + MySQL
 - **Autenticación:** Laravel Sanctum (API Tokens)
 - **Visualizaciones:** Recharts
 - **Navegación:** React Router v6
