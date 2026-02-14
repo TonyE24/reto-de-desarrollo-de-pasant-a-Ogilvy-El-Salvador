@@ -55,8 +55,4 @@ Ver carpeta `docs/` para:
 Este proyecto está en desarrollo activo como parte del reto de pasantía de Ogilvy El Salvador.
 
 **Cronograma:** 6 semanas (Feb 11 - Mar 25, 2026)
-**Estado actual:** Semana 1 - Configuración inicial completada
-
-## 📄 Licencia
-
-Proyecto académico - Reto de Pasantía Ogilvy El Salvador 2026
+**Estado actual:** Trabajando la Semana 1 - Configuración inicial completada
