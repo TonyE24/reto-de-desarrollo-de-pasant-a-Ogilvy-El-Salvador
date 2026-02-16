@@ -35,3 +35,6 @@ Frontend/dist/
 # Testing
 coverage/
 *.coverage
+
+# Documentation
+docs/*.md
