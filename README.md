@@ -20,20 +20,11 @@ MVP de plataforma de análisis de mercado para PYMEs, desarrollado como parte de
 ## 🏗️ Estructura del Proyecto
 <img width="2133" height="1038" alt="Frontend" src="https://github.com/user-attachments/assets/1d79fad4-5ebc-4d30-88da-45cd918673f8" />
 
-```
-reto-ogilvy/
-├── Backend/          # Laravel 11 API
-├── Frontend/         # React + TypeScript + Vite
-└── docs/            # Documentación y diagramas
-```
-
 ## ⚡ Inicio Rápido
 
 ### Backend (Laravel)
-```bash
-cd Backend
-php artisan serve
-```
+<img width="1485" height="1398" alt="Backend" src="https://github.com/user-attachments/assets/06c5ad03-3d53-477a-968b-618ede496434" />
+
 API disponible en: http://localhost:8000
 
 ### Frontend (React)
