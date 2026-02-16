@@ -18,6 +18,7 @@ MVP de plataforma de análisis de mercado para PYMEs, desarrollado como parte de
 4. **Inteligencia de Innovación** - Detección de oportunidades
 
 ## 🏗️ Estructura del Proyecto
+<img width="2133" height="1038" alt="Frontend" src="https://github.com/user-attachments/assets/1d79fad4-5ebc-4d30-88da-45cd918673f8" />
 
 ```
 reto-ogilvy/
