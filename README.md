@@ -28,7 +28,6 @@ MVP de plataforma de análisis de mercado para PYMEs, desarrollado como parte de
 API disponible en: http://localhost:8000
 
 ### Frontend (React)
-
 <img width="2133" height="1038" alt="Frontend" src="https://github.com/user-attachments/assets/1d79fad4-5ebc-4d30-88da-45cd918673f8" />
 Aplicación disponible en: http://localhost:5173
 
