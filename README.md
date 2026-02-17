@@ -19,10 +19,10 @@ MVP de plataforma de análisis de mercado para PYMEs, desarrollado como parte de
 
 ## 🏗️ Estructura del Proyecto
 
-
 ## ⚡ Inicio Rápido
 
 ### Backend (Laravel)
+
 <img width="1485" height="1398" alt="Backend" src="https://github.com/user-attachments/assets/06c5ad03-3d53-477a-968b-618ede496434" />
 
 API disponible en: http://localhost:8000
@@ -34,6 +34,7 @@ Aplicación disponible en: http://localhost:5173
 ## 📚 Documentación
 
 Ver carpeta `docs/` para:
+
 - Diagramas de arquitectura
 - Documentación de API
 - Plan de implementación

@@ -1,0 +1,2 @@
+# Este archivo mantiene la carpeta docs/ en el repositorio
+# Los archivos .md están en .gitignore, pero otros tipos de archivos sí se subirán
