@@ -42,7 +42,7 @@ class AuthController extends Controller
 
         // PASO 4: Devolveremos la respuesta al frontend
         return response()->json([
-            'message' => 'Usuario registrado exitosamente',
+            'message' => 'El usuario ha sido registrado exitosamente',
             'user'    => [
                 'id'    => $user->id,
                 'name'  => $user->name,
@@ -73,7 +73,7 @@ class AuthController extends Controller
         if (!Auth::attempt($request->only('email', 'password'))) {
             // Si las credenciales son incorrectas entonces devolvemos error 401
             return response()->json([
-                'message' => 'Credenciales que ingreso son incorrectas',
+                'message' => 'Credenciales que ingreso son incorrectas vuelva a intentarlo',
             ], 401); // El código 401 = "Unauthorized" no tiene permiso para acceder
         }
 
