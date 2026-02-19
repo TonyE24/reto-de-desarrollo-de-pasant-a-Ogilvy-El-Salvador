@@ -10,7 +10,7 @@ return new class extends Migration
      * Agregamos el campo "role" a la tabla users
      * 
      * Este campo define si el usuario es "admin" o "user"
-     * Por defecto todos son "user"
+     * Por defecto todos son "user" cuando se registran luego otro admin decide si lo hace admin o no 
      */
     public function up(): void
     {

@@ -24,7 +24,7 @@ class AuthController extends Controller
         // Si alguna validación falla entonces Laravel automáticamente devuelve un error 422
         $request->validate([
             'name'     => 'required|string|max:255',           // EL campo Nombre tiene las validaciones que es: obligatorio, texto, máximo 255 caracteres
-        'email'    => 'required|email|unique:users,email',     // EL campo Email tiene las validaciones que es: obligatorio, formato válido, único en la tabla users
+            'email'    => 'required|email|unique:users,email',     // EL campo Email tiene las validaciones que es: obligatorio, formato válido, único en la tabla users
             'password' => 'required|string|min:8|confirmed',   // EL campo Contraseña tiene las validaciones que es: obligatorio, mínimo 8 caracteres, debe confirmarse
         ]);
 
