@@ -30,4 +30,24 @@ Route::middleware('auth:sanctum')->group(function () {
             'user' => $request->user()
         ]);
     });
+
+    // rutas solo para admins: necesitan token + rol admin
+    // ejemplo: ruta para ver todos los usuarios del sistema
+    Route::middleware('role:admin')->group(function () {
+        Route::get('/admin/users', function (Request $request) {
+            return response()->json([
+                'users' => \App\Models\User::all()
+            ]);
+        });
+    });
+
+    // rutas para usuarios normales: necesitan token + rol user
+    // ejemplo: ruta para ver el perfil propio
+    Route::middleware('role:user')->group(function () {
+        Route::get('/profile', function (Request $request) {
+            return response()->json([
+                'profile' => $request->user()
+            ]);
+        });
+    });
 });
