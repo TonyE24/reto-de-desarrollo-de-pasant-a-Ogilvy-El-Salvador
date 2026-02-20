@@ -4,33 +4,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-/*
-|
-| Rutas PÚBLICAS que no necesitan token
-|
-| Cualquier persona puede acceder a estas rutas sin estar autenticada
-| Son las rutas de registro y login
-*/
+// rutas publicas: cualquiera puede acceder sin necesitar token
 Route::prefix('auth')->group(function () {
-    // La ruta  POST /api/auth/register → Registrar nuevo usuario
+    // POST /api/auth/register → para crear una cuenta nueva
     Route::post('/register', [AuthController::class, 'register']);
 
-    //La rutaPOST /api/auth/login → Iniciar sesión
+    // POST /api/auth/login → para iniciar sesion
     Route::post('/login', [AuthController::class, 'login']);
+
+    // POST /api/auth/forgot-password → manda el email con el link de reset
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+
+    // POST /api/auth/reset-password → cambia la contrasena con el token del email
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 });
 
-/*
-|--------------------------------------------------------------------------
-| Rutas PROTEGIDAS que si necesitaran el toquen de autenticación
-|--------------------------------------------------------------------------
-| Solo usuarios autenticados pueden acceder
-| El frontend debe enviar el token en el header: Authorization: Bearer {token} para dar acceso a estas rutas
-*/
+// rutas protegidas: solo si mandas el token en el header Authorization: Bearer {token}
 Route::middleware('auth:sanctum')->group(function () {
-    //La ruta POST /api/auth/logout → Cerrar sesión
+    // POST /api/auth/logout → cierra la sesion y borra el token
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
-    //La ruta GET /api/user → Obtener datos del usuario actual
+    // GET /api/user → devuelve los datos del usuario que esta logueado
     Route::get('/user', function (Request $request) {
         return response()->json([
             'user' => $request->user()
