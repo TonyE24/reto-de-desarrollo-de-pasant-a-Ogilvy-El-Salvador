@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompanyController;
 
 // rutas publicas: cualquiera puede acceder sin necesitar token
 Route::prefix('auth')->group(function () {
@@ -50,4 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
             ]);
         });
     });
+
+    // rutas para manejar empresas (CRUD)
+    Route::apiResource('companies', CompanyController::class);
 });
