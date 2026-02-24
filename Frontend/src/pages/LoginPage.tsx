@@ -79,7 +79,7 @@ function LoginPage() {
           </div>
 
           <div className="text-right">
-            <Link to="/forgot-password" className="text-lg text-rose-400 hover:underline font-bold">
+            <Link to="/forgot-password" className="text-lg text-rose-500 hover:underline font-bold">
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
@@ -95,7 +95,7 @@ function LoginPage() {
 
         <p className="text-center text-lg text-gray-800 mt-6">
           ¿No tienes cuenta?{' '}
-          <Link to="/register" className="text-lg text-rose-400 hover:underline font-medium">
+          <Link to="/register" className="text-lg text-rose-500 hover:underline font-bold">
             Regístrate
           </Link>
         </p>

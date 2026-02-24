@@ -130,7 +130,7 @@ function RegisterPage() {
 
         <p className="text-center text-lg font-semibold text-gray-500 mt-6">
           ¿Ya tienes cuenta?{' '}
-          <Link to="/login" className="text-rose-500 hover:underline font-medium">
+          <Link to="/login" className="text-rose-500 hover:underline font-bold">
             Inicia sesión
           </Link>
         </p>
