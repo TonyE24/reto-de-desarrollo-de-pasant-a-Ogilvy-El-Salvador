@@ -12,11 +12,11 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    // este metodo maneja el registro de nuevos usuarios
-    // recibe los datos del frontend, los valida y crea el usuario en la BD
+    // este metodo maneja el registro para los usuarios nuevos y
+    // recibe los datos del frontend los valida y crea el usuario en la BD
     public function register(Request $request)
     {
-        // primero valido que los datos que llegaron esten bien
+        // primero valida que los datos que llegaron esten bien
         // si algo falla laravel solo devuelve un 422 automaticamente
         $request->validate([
             'name'     => 'required|string|max:255',          // nombre obligatorio, max 255 caracteres
@@ -30,11 +30,11 @@ class AuthController extends Controller
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'role'     => 'user', // por defecto todos entran como usuarios normales
+            'role'     => 'user', // por defecto todos entran como usuarios los administradores pueden cambbiar el rol
         ]);
 
-        // genero el token de autenticacion para que el frontend lo guarde
-        // este token es el que se usa en cada peticion para saber quien eres
+        // genero el token de autenticacion para que el frontend lo guarde y
+        // este token es el que se usa en cada peticion para saber quien es y si tiene permiso para acceder
         $token = $user->createToken('auth_token')->plainTextToken;
 
         // devuelvo los datos del usuario y el token

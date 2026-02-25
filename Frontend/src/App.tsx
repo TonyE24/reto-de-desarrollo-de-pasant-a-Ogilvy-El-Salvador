@@ -14,15 +14,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* ruta raiz va directo al login */}
+        {/* Esta es la ruta raiz */}
         <Route path="/" element={<Navigate to="/login" />} />
 
-        {/* rutas publicas */}
+        {/* rutas publicas permitidas */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
-        {/* rutas privadas: solo si estas logueado */}
+        {/* rutas que solo se pueden acceder cuando estas registrado */}
         <Route path="/dashboard" element={
           <PrivateRoute>
             <DashboardPage />
