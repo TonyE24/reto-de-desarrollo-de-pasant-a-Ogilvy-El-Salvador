@@ -54,11 +54,11 @@ function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
+    <div className="min-h-screen bg-olive-50 flex items-center justify-center p-4">
+      <div className="bg-blue-200 rounded-2xl shadow-xl/30 p-8 w-full max-w-md">
 
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Crear cuenta</h1>
-        <p className="text-gray-500 text-sm mb-6">Completa el formulario para registrarte</p>
+        <h1 className="text-2xl font-bold text-gray-800 mb-2 text-center">Crear cuenta</h1>
+        <p className="text-gray-500 text-lg mb-6 text-center">Completa el formulario para registrarte</p>
 
         {error && (
           <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-lg mb-4">
@@ -68,7 +68,7 @@ function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+            <label className="block text-xl font-medium text-gray-700 mb-1">Nombre</label>
             <input
               type="text"
               name="name"
@@ -76,12 +76,12 @@ function RegisterPage() {
               onChange={handleChange}
               placeholder="Tu nombre"
               required
-              className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border bg-mist-100 border-gray-200 rounded-lg px-4 py-2.5 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-xl font-medium text-gray-700 mb-1">Email</label>
             <input
               type="email"
               name="email"
@@ -89,12 +89,12 @@ function RegisterPage() {
               onChange={handleChange}
               placeholder="tu@email.com"
               required
-              className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border bg-mist-100 border-gray-200 rounded-lg px-4 py-2.5 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+            <label className="block text-xl font-medium text-gray-700 mb-1">Contraseña</label>
             <input
               type="password"
               name="password"
@@ -102,12 +102,12 @@ function RegisterPage() {
               onChange={handleChange}
               placeholder="Mínimo 8 caracteres"
               required
-              className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border bg-mist-100 border-gray-200 rounded-lg px-4 py-2.5 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Confirmar contraseña</label>
+            <label className="block text-xl font-medium text-gray-700 mb-1">Confirmar contraseña</label>
             <input
               type="password"
               name="password_confirmation"
@@ -115,22 +115,22 @@ function RegisterPage() {
               onChange={handleChange}
               placeholder="Repite tu contraseña"
               required
-              className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border bg-mist-100 border-gray-200 rounded-lg px-4 py-2.5 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg text-sm transition disabled:opacity-50"
+            className="w-full bg-mist-800 hover:bg-mist-500 text-white font-medium py-2.5 rounded-lg text-lg transition disabled:opacity-50"
           >
             {loading ? 'Creando cuenta...' : 'Crear cuenta'}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-lg font-semibold text-gray-500 mt-6">
           ¿Ya tienes cuenta?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline font-medium">
+          <Link to="/login" className="text-rose-500 hover:underline font-bold">
             Inicia sesión
           </Link>
         </p>

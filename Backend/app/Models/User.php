@@ -50,4 +50,10 @@ class User extends Authenticatable
         // mando la notificacion con el link personalizado
         $this->notify(new ResetPassword($token));
     }
+
+    // un usuario puede tener varias empresas registradas
+    public function companies()
+    {
+        return $this->hasMany(Company::class);
+    }
 }

@@ -45,7 +45,7 @@ function DashboardPage() {
           </div>
 
           <p className="text-gray-400 text-sm text-center mt-8">
-            ✅ Autenticación funcionando correctamente
+            Pruba de Inicio de Sesion Exitosa!!
           </p>
         </div>
       </div>
