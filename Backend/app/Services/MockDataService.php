@@ -39,7 +39,7 @@ class MockDataService
     public function getTrendData()
     {
         $keywords = ['Sustentabilidad', 'IA Generativa', 'Ecommerce Local', 'Delivery Gratis', 'Calidad Premium'];
-        
+
         return collect($keywords)->map(function ($word) {
             return [
                 'keyword' => $word,
@@ -57,6 +57,7 @@ class MockDataService
     /**
      * Genera datos de Prediccion (Series hitoricas)
      * (Ventas proyectadas para los proximos meses)
+     * Son simples proyecciones lineales con algo de ruido para dar realismo
      */
     public function getPredictionData()
     {
