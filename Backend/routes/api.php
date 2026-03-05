@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\IntelligenceController;
+use App\Http\Controllers\DashboardController;
 
 // rutas publicas cualquiera puede acceder sin necesitar token
 Route::prefix('auth')->group(function () {
@@ -61,4 +62,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/intelligence/trends', [IntelligenceController::class, 'getTrendData']);
     Route::get('/intelligence/predictions', [IntelligenceController::class, 'getPredictionData']);
     Route::get('/intelligence/innovation', [IntelligenceController::class, 'getInnovationData']);
+
+    // ruta del dashboard consolidado con KPIs y filtros de fecha
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 });
