@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import DashboardLayout from '../components/DashboardLayout'
+import FilterBar from '../components/FilterBar'
+import type { FilterValues } from '../components/FilterBar'
 import intelligenceService from '../services/intelligenceService'
 
 const getCompanyId = () => {
@@ -24,7 +26,7 @@ const typeIcon: Record<string, string> = {
   technology: '🚀',
 }
 
-const typLabel: Record<string, string> = {
+const typeLabel: Record<string, string> = {
   opportunity: 'Oportunidad',
   gap: 'Gap de Mercado',
   technology: 'Tecnología Emergente',
@@ -34,11 +36,18 @@ function InnovationPage() {
   const [data, setData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    intelligenceService.getInnovationIntelligence(getCompanyId())
+  const fetchData = (dateFrom = '', dateTo = '') => {
+    setLoading(true)
+    intelligenceService.getInnovationIntelligence(getCompanyId(), dateFrom, dateTo)
       .then(setData)
       .finally(() => setLoading(false))
-  }, [])
+  }
+
+  useEffect(() => { fetchData() }, [])
+
+  const handleFilter = ({ dateFrom, dateTo }: FilterValues) => {
+    fetchData(dateFrom, dateTo)
+  }
 
   const opportunities = data?.innovation_opportunities || []
 
@@ -56,6 +65,8 @@ function InnovationPage() {
         <h1 className="text-2xl font-bold text-gray-800">Inteligencia de Innovación</h1>
         <p className="text-gray-500 text-sm mt-1">Oportunidades detectadas, gaps de mercado y tecnologías emergentes</p>
       </div>
+
+      <FilterBar onFilter={handleFilter} loading={loading} />
 
       {loading && (
         <div className="flex items-center justify-center h-64 text-gray-400">Detectando oportunidades...</div>
@@ -81,7 +92,7 @@ function InnovationPage() {
             : Object.entries(groups).map(([type, items]) => (
               <div key={type}>
                 <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3 flex items-center gap-2">
-                  {typeIcon[type] || '✨'} {typLabel[type] || type}
+                  {typeIcon[type] || '✨'} {typeLabel[type] || type}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {items.map((op, i) => (

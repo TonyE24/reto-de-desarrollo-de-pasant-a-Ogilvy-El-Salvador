@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import DashboardLayout from '../components/DashboardLayout'
+import FilterBar from '../components/FilterBar'
+import type { FilterValues } from '../components/FilterBar'
 import TrendLineChart from '../components/charts/TrendLineChart'
 import SentimentPieChart from '../components/charts/SentimentPieChart'
 import intelligenceService from '../services/intelligenceService'
@@ -13,11 +15,18 @@ function TrendsPage() {
   const [data, setData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    intelligenceService.getTrendIntelligence(getCompanyId())
+  const fetchData = (dateFrom = '', dateTo = '') => {
+    setLoading(true)
+    intelligenceService.getTrendIntelligence(getCompanyId(), dateFrom, dateTo)
       .then(setData)
       .finally(() => setLoading(false))
-  }, [])
+  }
+
+  useEffect(() => { fetchData() }, [])
+
+  const handleFilter = ({ dateFrom, dateTo }: FilterValues) => {
+    fetchData(dateFrom, dateTo)
+  }
 
   const trends = data?.trends || data?.trend_analysis || []
 
@@ -34,6 +43,8 @@ function TrendsPage() {
         <h1 className="text-2xl font-bold text-gray-800">Inteligencia de Tendencias</h1>
         <p className="text-gray-500 text-sm mt-1">Keywords que están sonando y análisis de sentimiento</p>
       </div>
+
+      <FilterBar onFilter={handleFilter} loading={loading} />
 
       {loading && <div className="flex items-center justify-center h-64 text-gray-400">Cargando tendencias...</div>}
 

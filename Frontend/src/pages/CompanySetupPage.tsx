@@ -5,7 +5,7 @@ import api from '../services/api'
 
 function CompanySetupPage() {
   const navigate = useNavigate()
-  
+
   // controles para el formulario multi-pasos
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
@@ -65,7 +65,7 @@ function CompanySetupPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-lg">
-        
+
         {/* Indicador de pasos arriba */}
         <div className="flex justify-between mb-8">
           {[1, 2, 3].map((s) => (
@@ -120,11 +120,24 @@ function CompanySetupPage() {
                   <option value="Comercio">Comercio</option>
                   <option value="Construcción">Construcción</option>
                   <option value="Servicios">Servicios</option>
+                  <option value="Salud">Salud</option>
+                  <option value="Educación">Educación</option>
+                  <option value="Finanzas">Finanzas</option>
+                  <option value="Turismo">Turismo</option>
+                  <option value="Manufactura">Manufactura</option>
+                  <option value="Transporte">Transporte</option>
+                  <option value="Energía">Energía</option>
+                  <option value="Agricultura">Agricultura</option>
+                  <option value="Moda">Moda</option>
+                  <option value="Medios">Medios</option>
+                  <option value="Deportes">Deportes</option>
+                  <option value="Entretenimiento">Entretenimiento</option>
+                  <option value="Otro">Otro</option>
                 </select>
               </div>
-              <button 
-                type="button" 
-                onClick={nextStep} 
+              <button
+                type="button"
+                onClick={nextStep}
                 disabled={!form.name || !form.industry}
                 className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition disabled:opacity-50"
               >
@@ -182,7 +195,7 @@ function CompanySetupPage() {
                   <button type="button" onClick={addKeyword} className="bg-blue-100 text-blue-700 px-4 rounded-lg font-bold">+</button>
                 </div>
               </div>
-              
+
               <div className="flex flex-wrap gap-2 mt-2">
                 {form.keywords.map(word => (
                   <span key={word} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm flex items-center gap-1">
@@ -194,8 +207,8 @@ function CompanySetupPage() {
 
               <div className="flex gap-4 mt-8">
                 <button type="button" onClick={prevStep} className="flex-1 bg-gray-100 text-gray-600 py-3 rounded-xl font-bold">Atrás</button>
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={loading}
                   className="flex-1 bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition disabled:opacity-50"
                 >

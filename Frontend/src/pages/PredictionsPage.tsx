@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import DashboardLayout from '../components/DashboardLayout'
+import FilterBar from '../components/FilterBar'
+import type { FilterValues } from '../components/FilterBar'
 import PredictionChart from '../components/charts/PredictionChart'
 import DataTable from '../components/charts/DataTable'
 import intelligenceService from '../services/intelligenceService'
@@ -13,11 +15,18 @@ function PredictionsPage() {
   const [data, setData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    intelligenceService.getPredictionIntelligence(getCompanyId())
+  const fetchData = (dateFrom = '', dateTo = '') => {
+    setLoading(true)
+    intelligenceService.getPredictionIntelligence(getCompanyId(), dateFrom, dateTo)
       .then(setData)
       .finally(() => setLoading(false))
-  }, [])
+  }
+
+  useEffect(() => { fetchData() }, [])
+
+  const handleFilter = ({ dateFrom, dateTo }: FilterValues) => {
+    fetchData(dateFrom, dateTo)
+  }
 
   const predictions = data?.predictions || []
   const source = data?.source
@@ -42,6 +51,8 @@ function PredictionsPage() {
           )}
         </p>
       </div>
+
+      <FilterBar onFilter={handleFilter} loading={loading} />
 
       {loading && <div className="flex items-center justify-center h-64 text-gray-400">Calculando predicciones...</div>}
 

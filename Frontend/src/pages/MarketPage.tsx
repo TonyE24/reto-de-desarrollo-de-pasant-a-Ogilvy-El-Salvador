@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import DashboardLayout from '../components/DashboardLayout'
+import FilterBar from '../components/FilterBar'
+import type { FilterValues } from '../components/FilterBar'
 import MarketBarChart from '../components/charts/MarketBarChart'
 import DataTable from '../components/charts/DataTable'
 import intelligenceService from '../services/intelligenceService'
@@ -14,12 +16,20 @@ function MarketPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    intelligenceService.getMarketIntelligence(getCompanyId())
+  const fetchData = (dateFrom = '', dateTo = '') => {
+    setLoading(true)
+    setError('')
+    intelligenceService.getMarketIntelligence(getCompanyId(), dateFrom, dateTo)
       .then(setData)
       .catch(() => setError('No se pudieron cargar los datos de mercado'))
       .finally(() => setLoading(false))
-  }, [])
+  }
+
+  useEffect(() => { fetchData() }, [])
+
+  const handleFilter = ({ dateFrom, dateTo }: FilterValues) => {
+    fetchData(dateFrom, dateTo)
+  }
 
   const chartData = data?.market_analysis?.map((item: any) => {
     const row: any = { producto: item.product, 'Mi Precio': item.my_price }
@@ -39,10 +49,12 @@ function MarketPage() {
         <p className="text-gray-500 text-sm mt-1">Comparativa de precios de tus productos vs. la competencia</p>
       </div>
 
+      <FilterBar onFilter={handleFilter} loading={loading} />
+
       {loading && <div className="flex items-center justify-center h-64 text-gray-400">Cargando datos...</div>}
       {error && <div className="bg-red-50 text-red-600 p-4 rounded-xl">{error}</div>}
 
-      {data && (
+      {data && !loading && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {data.market_analysis?.slice(0, 3).map((item: any, i: number) => (
