@@ -77,8 +77,8 @@ function Sidebar() {
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 ${
                 isActive
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-                  : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                  ? 'bg-green-600 text-white shadow-lg shadow-indigo-600/30'
+                  : 'text-blue-800 hover:bg-gray-800 hover:text-white'
               }`
             }
           >

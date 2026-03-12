@@ -127,6 +127,30 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        // ---------------------------------------------------------------
+        // Canales personalizados del proyecto (Issue #34)
+        // ---------------------------------------------------------------
+
+        // access: registra cada request HTTP que llega a la API
+        // archivo separado por dia con rotacion de 30 dias
+        'access' => [
+            'driver'   => 'daily',
+            'path'     => storage_path('logs/access.log'),
+            'level'    => 'info',
+            'days'     => 30,
+            'replace_placeholders' => true,
+        ],
+
+        // errors: registra excepciones y errores criticos del sistema
+        // archivo separado por dia con rotacion de 30 dias
+        'errors' => [
+            'driver'   => 'daily',
+            'path'     => storage_path('logs/errors.log'),
+            'level'    => 'error',
+            'days'     => 30,
+            'replace_placeholders' => true,
+        ],
+
     ],
 
 ];

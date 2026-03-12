@@ -7,35 +7,40 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\IntelligenceController;
 use App\Http\Controllers\DashboardController;
 
-// rutas publicas cualquiera puede acceder sin necesitar token
-Route::prefix('auth')->group(function () {
-    // POST /api/auth/register → para crear una cuenta nueva
+// ---------------------------------------------------------------
+// Rutas públicas de autenticación
+// throttle:auth → 5 intentos por minuto por IP (Issue #33)
+// ---------------------------------------------------------------
+Route::prefix('auth')->middleware('throttle:auth')->group(function () {
+    // POST /api/auth/register → crea una cuenta nueva
     Route::post('/register', [AuthController::class, 'register']);
 
-    // POST /api/auth/login → para iniciar sesion
+    // POST /api/auth/login → inicia sesion
     Route::post('/login', [AuthController::class, 'login']);
 
-    // POST /api/auth/forgot-password → manda el email con el link de reset
+    // POST /api/auth/forgot-password → envia link de reset por email
     Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 
     // POST /api/auth/reset-password → cambia la contrasena con el token del email
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 });
 
-// rutas protegidas: solo si mandas el token en el header Authorization: Bearer {token}
+// ---------------------------------------------------------------
+// Rutas protegidas: requieren token de Sanctum
+// ---------------------------------------------------------------
 Route::middleware('auth:sanctum')->group(function () {
-    // POST /api/auth/logout → cierra la sesion y borra el token
+
+    // POST /api/auth/logout → cierra la sesion
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
-    // GET /api/user → devuelve los datos del usuario que esta logueado
+    // GET /api/user → devuelve datos del usuario autenticado
     Route::get('/user', function (Request $request) {
         return response()->json([
             'user' => $request->user()
         ]);
     });
 
-    // rutas solo para admins: necesitan token + rol admin
-    // ejemplo: ruta para ver todos los usuarios del sistema
+    // rutas de admin (token + rol admin)
     Route::middleware('role:admin')->group(function () {
         Route::get('/admin/users', function (Request $request) {
             return response()->json([
@@ -44,8 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
         });
     });
 
-    // rutas para usuarios normales necesitan token + rol user
-    // ejemplo: ruta para ver el perfil propio
+    // rutas de perfil (token + rol user)
     Route::middleware('role:user')->group(function () {
         Route::get('/profile', function (Request $request) {
             return response()->json([
@@ -54,15 +58,30 @@ Route::middleware('auth:sanctum')->group(function () {
         });
     });
 
-    // rutas para manejar empresas CRUD
-    Route::apiResource('companies', CompanyController::class);
+    // ---------------------------------------------------------------
+    // Rutas de empresas: CRUD
+    // throttle:data → 60 requests/min por usuario (Issue #33)
+    // ---------------------------------------------------------------
+    Route::middleware('throttle:data')->group(function () {
+        Route::apiResource('companies', CompanyController::class);
+    });
 
-    // rutas de inteligencia módulos principales
-    Route::get('/intelligence/market', [IntelligenceController::class, 'getMarketData']);
-    Route::get('/intelligence/trends', [IntelligenceController::class, 'getTrendData']);
-    Route::get('/intelligence/predictions', [IntelligenceController::class, 'getPredictionData']);
-    Route::get('/intelligence/innovation', [IntelligenceController::class, 'getInnovationData']);
+    // ---------------------------------------------------------------
+    // Rutas de inteligencia: módulos principales
+    // throttle:data → 60 requests/min por usuario (Issue #33)
+    // ---------------------------------------------------------------
+    Route::middleware('throttle:data')->prefix('intelligence')->group(function () {
+        Route::get('/market',      [IntelligenceController::class, 'getMarketData']);
+        Route::get('/trends',      [IntelligenceController::class, 'getTrendData']);
+        Route::get('/predictions', [IntelligenceController::class, 'getPredictionData']);
+        Route::get('/innovation',  [IntelligenceController::class, 'getInnovationData']);
+    });
 
-    // ruta del dashboard consolidado con KPIs y filtros de fecha
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    // ---------------------------------------------------------------
+    // Ruta del dashboard consolidado
+    // throttle:dashboard → 30 requests/min por usuario (Issue #33)
+    // ---------------------------------------------------------------
+    Route::middleware('throttle:dashboard')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index']);
+    });
 });

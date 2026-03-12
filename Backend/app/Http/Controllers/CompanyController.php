@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCompanyRequest;
+use App\Http\Requests\UpdateCompanyRequest;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
-    // este metodo sirve para listar todas las empresas que tiene el usuario logueado
+    // lista todas las empresas del usuario autenticado
     public function index()
     {
-        // me traigo solo las empresas que le pertenecen al user que hizo la peticion
         $companies = Auth::user()->companies;
 
         return response()->json([
@@ -19,19 +19,10 @@ class CompanyController extends Controller
         ], 200);
     }
 
-    // aqui guardamos una empresa nueva en la base de datos
-    public function store(Request $request)
+    // crea una nueva empresa ligada al usuario autenticado
+    public function store(StoreCompanyRequest $request)
     {
-        // primero valido los datos para que no venga nada raro
-        $request->validate([
-            'name'     => 'required|string|max:255',
-            'industry' => 'required|string',
-            'country'  => 'required|string',
-            'region'   => 'required|string',
-            'keywords' => 'nullable|array',
-        ]);
-
-        // creo la empresa y de una vez la ligo al usuario que esta autenticado
+        // datos ya validados y sanitizados por StoreCompanyRequest
         $company = Auth::user()->companies()->create([
             'name'     => $request->name,
             'industry' => $request->industry,
@@ -46,10 +37,9 @@ class CompanyController extends Controller
         ], 201);
     }
 
-    // sirve para ver los detalles de una empresa especifica
+    // muestra los detalles de una empresa especifica del usuario
     public function show($id)
     {
-        // la busco pero solo dentro de las que son del usuario, asi nadie ve lo que no debe
         $company = Auth::user()->companies()->find($id);
 
         if (!$company) {
@@ -59,8 +49,8 @@ class CompanyController extends Controller
         return response()->json(['company' => $company], 200);
     }
 
-    // para cuando el usuario quiera cambiar algun dato de su empresa
-    public function update(Request $request, $id)
+    // actualiza los datos de una empresa existente
+    public function update(UpdateCompanyRequest $request, $id)
     {
         $company = Auth::user()->companies()->find($id);
 
@@ -68,17 +58,8 @@ class CompanyController extends Controller
             return response()->json(['message' => 'No encontramos la empresa para actualizar'], 404);
         }
 
-        // valido lo que llega, pero aqui los campos son opcionales porque puede que solo cambie uno
-        $request->validate([
-            'name'     => 'string|max:255',
-            'industry' => 'string',
-            'country'  => 'string',
-            'region'   => 'string',
-            'keywords' => 'array',
-        ]);
-
-        // actualizo los campos que mandaron
-        $company->update($request->all());
+        // solo actualizamos los campos que llegaron (validated filtra los extras)
+        $company->update($request->validated());
 
         return response()->json([
             'message' => 'Datos actualizados correctamente',
@@ -86,7 +67,7 @@ class CompanyController extends Controller
         ], 200);
     }
 
-    // este sirve para borrar la empresa si el usuario ya no la quiere
+    // elimina una empresa del usuario
     public function destroy($id)
     {
         $company = Auth::user()->companies()->find($id);
