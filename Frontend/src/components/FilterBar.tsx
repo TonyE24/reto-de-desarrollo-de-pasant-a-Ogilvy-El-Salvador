@@ -32,7 +32,7 @@ function FilterBar({ onFilter, loading = false }: FilterBarProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-wrap gap-3 items-end bg-white border border-gray-100 rounded-2xl px-5 py-4 shadow-sm mb-6"
+      className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:items-end bg-white border border-gray-100 rounded-2xl px-4 sm:px-5 py-4 shadow-sm mb-6"
     >
       {/* icono de filtro */}
       <div className="flex items-center gap-2 mr-1 text-gray-400 self-center">
